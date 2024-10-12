@@ -1,0 +1,54 @@
+.Menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.Menu__button {
+}
+
+.Menu__sidebar {
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  height: calc(100vh - 80px);
+  width: 240px;
+  top: 80px;
+  right: 0px;
+  background: #000;
+}
+
+/*
+  another viable option would be to use data attributes:
+  .Menu--sidebar[data-open="true"]
+
+  and to have a counterpart in the tsx file
+*/
+.Menu__sidebar--open {
+  display: flex;
+}
+
+.Menu__items {
+  padding: unset;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  gap: 48px;
+}
+
+.Menu__item {
+}
+
+.Menu__link {
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+}
+
+.Menu__item--active > .Menu__link {
+  color: rgb(202, 202, 202);
+  border-bottom: 1px solid rgb(202, 202, 202);
+}

@@ -1,0 +1,22 @@
+.NavBar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NavBar__items {
+  display: flex;
+  list-style: none;
+  gap: 48px;
+}
+
+.NavBar__link {
+  color: white;
+  text-decoration: none;
+}
+
+.NavBar__item--active > .NavBar__link {
+  color: rgb(202, 202, 202);
+  border-bottom: 1px solid rgb(202, 202, 202);
+}

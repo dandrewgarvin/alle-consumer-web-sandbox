@@ -1,0 +1,25 @@
+.Header {
+  box-sizing: border-box;
+  background-color: #000;
+  height: 80px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 16px;
+}
+
+.Header > .AlleLogo {
+  fill: #fff;
+}
+
+.Header > .NavBar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .Header > .NavBar {
+    display: flex;
+  }
+}
