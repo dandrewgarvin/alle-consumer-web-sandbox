@@ -21,55 +21,7 @@ library considerations
 
 ### Specificity
 
-Specificity is an _extremely_ important thing to consider when building UI, especially when we have so many different layers of components.
-
-First, a quick [introduction to specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity):
-
-Specificity is simply the way the browser determines what styles to apply to a given element. Each method of styling an element has a different weight. Take a look at this code snippet to see a basic example of weights:
-
-```html
-<head>
-  <style>
-    /* This is a TYPE selector, and has a weight of 1 */
-    div {
-      background: lightgrey;
-    }
-
-    /* This is a CLASS selector, and has a weight of 10 */
-    .container {
-      background: grey;
-    }
-
-    /* This is an ID selector, and has a weight of 100 */
-    #actions {
-      background: black;
-    }
-
-    div {
-      background: salmon !important; /* !important overrides all specificity rule */
-    }
-
-    /* We're using a TYPE and CLASS selector here, so we have a weight of 11 */
-    div.container {
-      background: yellow;
-    }
-  </style>
-</head>
-
-<body>
-  <div
-    style="background: purple;" // inline styles have a weight of 1000
-    class="container"
-    id="actions"
-  >
-</body>
-```
-
-In order to apply styles to an element, you must use a selector with a higher specificity. If a component applies styles with an id (100), in order to apply your own styles, you would need a selector with a specificity of at least 101 (`button#submit`, for example).
-
----
-
-To help understand why specificity matters, consider the layers currently in our frontend codebase:
+Specificity is an extremely important thing to consider when building UI, especially when we have so many different layers of components. Consider the layers currently in our frontend codebase:
 
 ![Alle Frontend Layers](./docs/assets/alle-frontend-layers.png)
 
@@ -79,9 +31,9 @@ The consumer web repo contains two primary directories; Apps and Packages. Apps 
 
 ---
 
-Now imagine a component in `alle-elements` being styled with anything but the lowest specificity; Let's pretend that the `button` component applies all of its styles with a specificity of 30. Let's assume that we have a `BrandButton` in `core-components` that imports this button, and adds some styling and functionality on top of that. In order to add this new styling, it needs to use a higher specificity than 30, so its selectors may look something like this: `div>.button>.label:hover {...}`, which has a specificity of 31.
+Now imagine a component, `Button`, in `alle-elements` being styled with anything but the lowest specificity; Let's pretend that the button applies all of its styles with multiple classes, totalling a specificity of 30. Now let's assume that we want to build a `BrandButton` in `core-components` that imports and modifies `alle-elements/Button`. In order to override the styles, we'll need a combination of selectors totalling at least 31 specificity.
 
-Then going a step further, we now need to import that `BrandButton` into `domain-cms` for an `onClick` handler to query data, but we also need to add some styles, so now we need a selector like `div>.button.brandButton>label:hover {...}` or something; higher specificity, but getting super messy.
+Then going a step further, we now need to import that `BrandButton` into `domain-cms` for an `onClick` handler to query data, but we also need to add some styles, so now we need a selector with still a higher specificity, and we're entering "selector hell" with things like `.button.primary.action.brandButton {...}`, or having to resort to using ids in a component library 🤢
 
 And on and on we go, adding more and more complex selectors with each layer.
 
