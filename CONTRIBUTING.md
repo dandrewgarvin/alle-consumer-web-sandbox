@@ -39,6 +39,8 @@ And on and on we go, adding more and more complex selectors with each layer.
 
 The moral of the story is this: build small components with low specificity. If our initial button in alle elements used just a single `.button {}` selector (with a specificity of 10), building on top of it in any and all of the above layers becomes significantly easier and cleaner, and less prone to bugs.
 
+See [these mdn docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) or [this article](https://css-tricks.com/specifics-on-css-specificity/) to learn more about how specificity works.
+
 ### Atomic Design
 
 ### SCSS
