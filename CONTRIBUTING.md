@@ -27,6 +27,8 @@ When contribution to any alle frontend code, you should be thinking of the desig
 
 Please see [this miro board](https://miro.com/app/board/uXjVLJUCrko=/?moveToWidget=3458764605858806971&cot=14) for an example of how the consumer wallet might be composed using atomic design.
 
+And see [this ADR](https://github.com/allergan-data-labs/alle-frontend-consumer-web/blob/main/docs/adrs/0003-packages-hierarchy.md#levels-breakdown) for guidelines for where to build components (the correct layers).
+
 ### SCSS
 
 ## Development Environment
