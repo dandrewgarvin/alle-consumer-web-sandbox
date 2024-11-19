@@ -23,13 +23,36 @@ library considerations
 
 [Atomic Design](https://atomicdesign.bradfrost.com/chapter-2/) is a way of building components in a way that they become _very_ reusable, and support _many_ different use-cases in the future.
 
-When contribution to any alle frontend code, you should be thinking of the designs you receive atomically; Break down the design into its core elements, and place those components in the correct layers.
+When contributing to any alle frontend code, you should be thinking of the designs you receive atomically; Break down the design into its core elements, and place those components in the correct layers.
 
-Please see [this miro board](https://miro.com/app/board/uXjVLJUCrko=/?moveToWidget=3458764605858806971&cot=14) for an example of how the consumer wallet might be composed using atomic design.
+Please see [this miro board](https://miro.com/app/board/uXjVLJUCrko=/?moveToWidget=3458764605858806971&cot=14) for an example of how the consumer wallet might be composed using atomic design, and see [this ADR](https://github.com/allergan-data-labs/alle-frontend-consumer-web/blob/main/docs/adrs/0003-packages-hierarchy.md#levels-breakdown) for guidelines for where to build components (the correct layers).
 
-And see [this ADR](https://github.com/allergan-data-labs/alle-frontend-consumer-web/blob/main/docs/adrs/0003-packages-hierarchy.md#levels-breakdown) for guidelines for where to build components (the correct layers).
+>[!IMPORTANT]
+> Consider the layers you're building components in, and use the appropriate atomic elements for that layer
 
-### SCSS
+### Chakra & Specificity
+
+CSS-in-JS libraries like Chakra don't use the browsers traditional [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) engine for styling. This is because its the flow of our javascript code (or the code in the library we're using) that determine which styles get applied.
+
+In the case of chakra, our "specificity" is determined from a few different mechanisms, primarily the order of the props we apply, and _which_ props we're applying.
+
+Generally, using direct props like `color` or `bg` or `maxW` should be used when building lower level components. When building more complex components closer to the view level, you should use the `sx` prop, since these will override direct props.
+
+>[!IMPORTANT]
+> Components should expose a `style` prop that gets mapped to the `sx` prop
+
+>[!IMPORTANT]
+> Prefer using `style` to override styles rather than accepting a `color` prop
+
+```tsx
+// @packages/core/components
+const AlleButton = ({ styles = undefined }: { styles: StyleProps }) => {
+  return (
+    {/* if `styles` contains a color property, that's the color that will be shown instead of nude */}
+    <ChakraButton color="nude" sx={styles} />
+  )
+}
+```
 
 ## Development Environment
 
