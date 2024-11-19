@@ -492,7 +492,7 @@ const IconInput = (...) => {
 
 However, the base/variant approach is probably not a good solution for a Card component where there will not be many variants being created
 
-- https://blog.bitsrc.io/design-systems-react-buttons-with-the-base-variant- pattern-c56a3b394aaf
+- https://blog.bitsrc.io/design-systems-react-buttons-with-the-base-variant-pattern-c56a3b394aaf
 - https://spotify.design/article/reimagining-design-systems-at-spotify
 
 ### Presentational vs Container Components
