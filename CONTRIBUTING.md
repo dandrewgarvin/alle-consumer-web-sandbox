@@ -281,6 +281,43 @@ const walletMethods = {
 
 ### Components should not be aware of ADL data
 
+The sections below on various Design Philosophies will hopefully illustrate why components in all lower layers should be presentational only. They should accept generic data, and render it, but should not fetch their own data, or be aware of domain-specific language or models.
+
+This is one of the most important steps to take into building high-quality software, and _good_ reusable components.
+
+Bad:
+
+```tsx
+// this component knows way too much about the data it is rendering
+const Table = ({ transactions }) => {
+  return (
+    <table>
+      {transactions.map(transaction => {
+        if (transaction.status === 'COMPLETED') {
+          return (...)
+        }
+        ...
+      })}
+    </table>
+  )
+}
+```
+
+Good:
+
+```tsx
+// the table is generic, so will work in multiple applications and on multiple pages
+const Table = ({ columns, records }) => {
+  return (
+    <table>
+      {records.map(record => {
+        return <TableRow columns={columns} record={record} />
+      })}
+    </table>
+  )
+}
+```
+
 ### Prefer semantic HTML over generic tags
 
 ### Files owned by a single team should be explicitly owned
