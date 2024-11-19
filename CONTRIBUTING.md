@@ -186,6 +186,61 @@ Instead, your import lines should reference the file that directly exports the c
 
 ### Prefer named exports over default exports
 
+Default exports can serve a useful purpose for things like libraries that need to export an entire namespace, but since we are in an application-centric codebase, we should not be using them, and instead prefer to use named exports.
+
+There are a lot of benefits received from named exports, including letting component authors name a component rather than the person importing it, the potential for codemods, etc.
+
+> [!IMPORTANT]
+> Don't use default exports. Use named exports instead.
+
+Bad:
+
+```tsx
+const Button = () => {...}
+
+export Button;
+```
+
+Good:
+
+```tsx
+const Button = () => {...}
+
+export {
+  Button
+}
+```
+
+### Exports should be at the bottom of the file
+
+To enhance readability, all exports should be located at the bottom of the file. This makes it very easy to know everything that is exported from the file, rather than having to look at every declaration within the file to determine if it's being exported or not. This is especially helpful with large files.
+
+Bad:
+
+```tsx
+export interface Props {...}
+
+export const Button = () => {...}
+
+export const StyledButton = () => {...}
+```
+
+Good:
+
+```tsx
+interface Props {...}
+
+const Button = () => {...}
+
+const StyledButton = () => {...}
+
+
+
+export type { Props }
+
+export { Button, StyledButton }
+```
+
 ### Prefer IndexCased component and class names
 
 ### Components should not be aware of ADL data
