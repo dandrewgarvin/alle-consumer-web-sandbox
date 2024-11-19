@@ -70,6 +70,45 @@ Storybook is primarily valuable when used lower in the stack. Knowing that `@pac
 
 ### Typescript Path Aliases
 
+In order to reduce deeply nested imports that result in lines like this:
+
+```tsx
+import { Button } from '../../../../../../components/button`;
+```
+
+There are some path aliases set up to make imports significantly easier.
+
+1. Code from external repos is deployed to NPM, and can be imported via `@allergan-data-labs/*`
+2. Code from packages within the same repo can be imported via `@packages/*`
+3. Code from within the current app (IE `consumer-web`) can be imported via `~`, which maps to `consumer-web/src
+
+Example:
+
+```tsx
+// directory structure:
+// alle-frontend-consumer-web
+//   @packages/
+//     core/
+//       components/
+//         alle-button.tsx
+//   apps/
+//     consumer-web/
+//       src/
+//         components/
+//           header.tsx
+//         views/
+//           financing/
+//             financing-modal.tsx
+
+// ============================== //
+
+// apps/consumer-web/src/views/financing/financing-modal.tsx
+
+import { Modal } from '@allergan-data-labs/alle-elements/modal'
+import { AlleButton } from '@packages/core-components/alle-button'
+import { Header } from '~/components/header'
+```
+
 ## Code Standards
 
 ### Component props should be used explicitly instead of passing in via the spread operator ({...props})
@@ -93,6 +132,10 @@ Storybook is primarily valuable when used lower in the stack. Knowing that `@pac
 ### Components should not be aware of ADL data
 
 ### Prefer kebab-casing for file paths
+
+### No default exports
+
+### Barrel files
 
 ### Files owned by a single team should be explicitly owned
 
