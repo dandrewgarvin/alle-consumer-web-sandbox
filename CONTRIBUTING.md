@@ -115,9 +115,6 @@ import { Header } from '~/components/header';
 
 Spreading props leads to behaviors that are difficult to debug, and prop chains (IE multiple layers of components all using `...props`) that are difficult to trace. If we are explicit about the props we receive (and the props that we pass in), it becomes significantly easier to reason about our app and know what is happening in our code.
 
-> [!IMPORTANT]
-> Don't spread props; Intentionally pass each prop in separately.
-
 Bad:
 
 ```tsx
@@ -143,10 +140,6 @@ const Button = ({ children, onClick, disabled = false }) => {
 ### Be explicit about which default props are supported
 
 When declaring typescript interfaces, it is preferred to support a select few set of native html attributes (or chakra props) rather than everything blindly. This is easy enough to do since we are not spreading props, either.
-
-> [!IMPORTANT]
-> Don't spread props. Be explicit about which props are or are not supported.
-
 
 Bad:
 
@@ -176,29 +169,17 @@ interface Props extends SupportedDefaultProps {...}
 const Button = (props: Props) => {...}
 ```
 
-### Parent components should be able to easily override styles
-
-### Styles should be done in a SCSS file using BEM, Atomic CSS, and Tailwind CSS
-
-- with chakra components recommending style props like sx, mr, etc, this
-
-### Do not use JS when CSS will suffice
-
-### Prefer IndexCased component and class names
-
-### Prefer semantic HTML over generic tags
-
-### CSS class names are joined in an array
-
-### Global CSS classes should be prefixed
-
-### Components should not be aware of ADL data
-
 ### Prefer kebab-casing for file paths
+
+### Prefer no barrel files
 
 ### Prefer named exports over default exports
 
-### Prefer no barrel files
+### Prefer IndexCased component and class names
+
+### Components should not be aware of ADL data
+
+### Prefer semantic HTML over generic tags
 
 ### Files owned by a single team should be explicitly owned
 
