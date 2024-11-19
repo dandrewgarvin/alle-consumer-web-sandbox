@@ -1,6 +1,5 @@
 ## Consumer Web - Contributing
 
-
 ## Problems with current components
 
 1. component libraries have no identity; no layers
@@ -11,9 +10,10 @@
 5. terrible prop usage
 6. outer layer components with business logic
 
---------------------------------------------------
+---
 
 library considerations
+
 - chakra UI
 - alle-elements
 
@@ -27,7 +27,7 @@ When contributing to any alle frontend code, you should be thinking of the desig
 
 Please see [this miro board](https://miro.com/app/board/uXjVLJUCrko=/?moveToWidget=3458764605858806971&cot=14) for an example of how the consumer wallet might be composed using atomic design, and see [this ADR](https://github.com/allergan-data-labs/alle-frontend-consumer-web/blob/main/docs/adrs/0003-packages-hierarchy.md#levels-breakdown) for guidelines for where to build components (the correct layers).
 
->[!IMPORTANT]
+> [!IMPORTANT]
 > Consider the layers you're building components in, and use the appropriate atomic elements for that layer
 
 ### Chakra & Specificity
@@ -38,11 +38,11 @@ In the case of chakra, our "specificity" is determined from a few different mech
 
 Generally, using direct props like `color` or `bg` or `maxW` should be used when building lower level components. When building more complex components closer to the view level, you should use the `sx` prop, since these will override direct props.
 
->[!IMPORTANT]
+> [!IMPORTANT]
 > Components should expose a `style` prop that gets mapped to the `sx` prop
 
->[!IMPORTANT]
-> Prefer using `style` to override styles rather than accepting things like  `color` props
+> [!IMPORTANT]
+> Prefer using `style` to override styles rather than accepting things like `color` props
 
 ```tsx
 // @packages/core/components
@@ -65,7 +65,7 @@ Storybook & Chromatic are an essential part of building component libraries. Whe
 
 Storybook is primarily valuable when used lower in the stack. Knowing that `@packages/core/components/alle-button` has a visual breaking change is extremely important, since that component is likely to be used in dozens of places. Knowing that `consumer-web/views/financing/components/financing-modal` has a breaking change is helpful, but has a limited ROI comparatively, and so is not required to have a storybook file.
 
->[!IMPORTANT]
+> [!IMPORTANT]
 > Components that are likely to be re-used in many places (EG anything in `@packages/core`, or some components in `consumer-web/components`) should have a storybook file, and be included in the chromatic pipeline
 
 ### Typescript Path Aliases
@@ -80,7 +80,7 @@ There are some path aliases set up to make imports significantly easier.
 
 1. Code from external repos is deployed to NPM, and can be imported via `@allergan-data-labs/*`
 2. Code from packages within the same repo can be imported via `@packages/*`
-3. Code from within the current app (IE `consumer-web`) can be imported via `~`, which maps to `consumer-web/src
+3. Code from within the current app (IE `consumer-web`) can be imported via `~`, which maps to `consumer-web/src`
 
 Example:
 
@@ -104,20 +104,47 @@ Example:
 
 // apps/consumer-web/src/views/financing/financing-modal.tsx
 
-import { Modal } from '@allergan-data-labs/alle-elements/modal'
-import { AlleButton } from '@packages/core-components/alle-button'
-import { Header } from '~/components/header'
+import { Modal } from '@allergan-data-labs/alle-elements/modal';
+import { AlleButton } from '@packages/core-components/alle-button';
+import { Header } from '~/components/header';
 ```
 
 ## Code Standards
 
 ### Component props should be used explicitly instead of passing in via the spread operator ({...props})
 
+Spreading props leads to behaviors that are difficult to debug, and prop chains (IE multiple layers of components all using `...props`) that
+are difficult to trace. If we are explicit about the props we receive (and the props
+that we pass in), it becomes significantly easier to reason about our app and know
+what is happening in our code.
+
+Bad:
+
+```tsx
+// we don't know what can or cannot be passed in
+const Button = ({ children, ...props }) => {
+  return <button {...props}>{children}</button>;
+};
+```
+
+Good:
+
+```tsx
+// we are confident that only the props we have listed can be used. typescript aids us in the parent component
+const Button = ({ children, onClick, disabled = false }) => {
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+};
+```
+
 ### Parent components should be able to easily override styles
 
 ### Styles should be done in a SCSS file using BEM, Atomic CSS, and Tailwind CSS
 
-- with chakra components recommending style props like sx, mr, etc, this 
+- with chakra components recommending style props like sx, mr, etc, this
 
 ### Do not use JS when CSS will suffice
 
@@ -133,9 +160,9 @@ import { Header } from '~/components/header'
 
 ### Prefer kebab-casing for file paths
 
-### No default exports
+### Prefer named exports over default exports
 
-### Barrel files
+### Prefer no barrel files
 
 ### Files owned by a single team should be explicitly owned
 
@@ -144,17 +171,17 @@ import { Header } from '~/components/header'
 a good example of component folders are:
 
 src/
-  components/
-    header/
-      index.ts
-      header.tsx
-      header.css
-      header.*.ts
-    wallet-card/
-      index.ts
-      wallet-card.tsx
-      wallet-card.css
-      wallet-card.*.ts
+components/
+header/
+index.ts
+header.tsx
+header.css
+header._.ts
+wallet-card/
+index.ts
+wallet-card.tsx
+wallet-card.css
+wallet-card._.ts
 
 ## Design Philosophies
 
