@@ -17,7 +17,7 @@ library considerations
 - chakra UI
 - alle-elements
 
-## Styles
+## Styling
 
 ### Atomic Design
 
@@ -42,7 +42,7 @@ Generally, using direct props like `color` or `bg` or `maxW` should be used when
 > Components should expose a `style` prop that gets mapped to the `sx` prop
 
 >[!IMPORTANT]
-> Prefer using `style` to override styles rather than accepting a `color` prop
+> Prefer using `style` to override styles rather than accepting things like  `color` props
 
 ```tsx
 // @packages/core/components
@@ -56,9 +56,17 @@ const AlleButton = ({ styles = undefined }: { styles: StyleProps }) => {
 
 ## Development Environment
 
-### Storybook
+### Storybook & Chromatic
 
-### Chromatic
+Storybook & Chromatic are an essential part of building component libraries. When used together, they serve two essential purposes:
+
+1. They become the source of truth for a components documentation & usage
+2. They become part of our testing pipeline, helping to prevent unknown breaking changes and regressions
+
+Storybook is primarily valuable when used lower in the stack. Knowing that `@packages/core/components/alle-button` has a visual breaking change is extremely important, since that component is likely to be used in dozens of places. Knowing that `consumer-web/views/financing/components/financing-modal` has a breaking change is helpful, but has a limited ROI comparatively, and so is not required to have a storybook file.
+
+>[!IMPORTANT]
+> Components that are likely to be re-used in many places (EG anything in `@packages/core`, or some components in `consumer-web/components`) should have a storybook file, and be included in the chromatic pipeline
 
 ### Typescript Path Aliases
 
@@ -112,3 +120,13 @@ src/
 ### Presentational vs Container Components
 
 ### Compound Components
+
+## Testing
+
+### Unit Tests
+
+### E2E & Integration Tests
+
+## Observability
+
+### Logging & Monitoring
