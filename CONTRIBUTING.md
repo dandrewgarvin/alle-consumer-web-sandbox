@@ -452,9 +452,61 @@ We have a fairly large suite of applications with domains that span multiple pag
 
 ### Base/Variant
 
+The base/variant pattern is a great option for components like inputs that generally share the same basic functionality, but have stylistic, or slight functional differences. For example, a base input class may have an interface like this:
+
+```tsx
+interface BaseInput {
+  type?: string;
+  value?: string;
+  onChange(event: any): void;
+  required?: boolean;
+  placeholder?: string;
+}
+```
+
+that may lend itself to a currency variant or an icon variant:
+
+```tsx
+interface CurrencyInput extends BaseInput {
+  locale?: string;
+  precision?: int;
+}
+
+const CurrencyInput = (...) => {
+  return (
+    <BaseInput ... />
+  )
+}
+
+interface IconInput extends BaseInput {
+  Icon?: React.Element;
+  position?: 'left' | 'right'
+}
+
+const IconInput = (...) => {
+  return (
+    <BaseInput ... />
+  )
+}
+```
+
+However, the base/variant approach is probably not a good solution for a Card component where there will not be many variants being created
+
+- https://blog.bitsrc.io/design-systems-react-buttons-with-the-base-variant-
+  pattern-c56a3b394aaf
+- https://spotify.design/article/reimagining-design-systems-at-spotify
+
 ### Presentational vs Container Components
 
+The principles of Presentational components should influence everything in this application, and has been discussed in previous sections. A good, reusable component should be domain-agnostic.
+
+- https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+
 ### Compound Components
+
+Compound components are a great option for complex components that dynamically place content inside of them, or contain fragmented components that need to pass data around in a clean, self-contained way. A good example may be a `Table` component that has `Table.Header` , `Table.Row` , and `Table.Filters` children. These components likely need to interact with each other, and could be rendered in different ways, so using compound components allow us to manage complex interactions between components without making the parent component(s) messy with state.
+
+- https://kentcdodds.com/blog/compound-components-with-react-hooks
 
 ## Testing
 
