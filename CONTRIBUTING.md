@@ -178,11 +178,65 @@ To avoid any potential casing issues, and to improve readability (especially wit
 > [!IMPORTANT]
 > Files and directories should use kebab-casing
 
+Bad:
+
+```
+apps/
+  consumerWeb/
+    views/
+      wallet/
+        walletView.tsx
+        components/
+          walletCard.tsx
+          walletButton.tsx
+```
+
+Good:
+
+```
+apps/
+  consumer-web/
+    views/
+      wallet/
+        wallet-view.tsx
+        components/
+          wallet-card.tsx
+          wallet-button.tsx
+```
+
 ### Prefer no barrel files
 
 [Barrel files](https://tkdodo.eu/blog/please-stop-using-barrel-files) are a name given to `index` files that do nothing but import/re-export other files. While these can make imports look pretty, they also have the potential for accidental circular imports, so it is preferred to not use them.
 
 Instead, your import lines should reference the file that directly exports the class/component/etc you need.
+
+Bad:
+
+```
+apps/
+  consumer-web/
+    views/
+      wallet/
+        index.tsx            // this imports/re-exports the wallet-view
+        wallet-view.tsx      // this imports from components/index.tsx
+        components/
+          index.tsx          // this imports/re-exports wallet-card and wallet-button
+          wallet-card.tsx
+          wallet-button.tsx
+```
+
+Good:
+
+```
+apps/
+  consumer-web/
+    views/
+      wallet/
+        wallet-view.tsx
+        components/          // there is no index.tsx file
+          wallet-card.tsx
+          wallet-button.tsx
+```
 
 ### Prefer named exports over default exports
 
@@ -311,14 +365,79 @@ const Table = ({ columns, records }) => {
   return (
     <table>
       {records.map(record => {
-        return <TableRow columns={columns} record={record} />
+        return <TableRow columns={columns} record={record} />;
       })}
     </table>
-  )
-}
+  );
+};
 ```
 
 ### Prefer semantic HTML over generic tags
+
+[Semantic HTML](https://web.dev/learn/html/semantic-html) is one of the most important parts of UI development when it comes to accessibility (a11y) and search engine optimization (SEO).
+
+To ensure users have a good experience, and to make sure our pages are indexable, we should make sure to use the correct HTML tags. [This cheat sheet](https://webaim.org/resources/htmlcheatsheet/HTML%20Semantics%20and%20Accessibility%20Cheat%20Sheet.pdf) can be useful to understand which element to used.
+
+This rule can be applied whether you're using basic HTML tags, or by using [Chakra's "as" prop](https://www.chakra-ui.com/docs/components/concepts/composition#the-as-prop).
+
+Bad:
+
+```tsx
+import { Text } from '@chakra-ui/react';
+
+const AlleHeader = () => {
+  return (
+    {/* divs do nothing to help with a11y or seo */}
+    <div>
+      {/* even if we were to visually style these two strings, so that the welcome text is much larger, for a11y and seo purposes, these have the same level of "importance", which is not a good things. */}
+      <div className='welcome'>
+        <Text>Welcome, Cousin Throckmorton</Text>
+
+        <Text>You have earned 3,450 points this month!</Text>
+      </div>
+
+      {/* the <nav> element in HTML has some amazing benefits that we're not getting here */}
+      <div className='navigation'>
+        <div className='nav-items'>
+          <div className='nav-item'>Home</div>
+          <div className='nav-item'>Wallet</div>
+          <div className='nav-item'>Search Providers</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+Good:
+
+```tsx
+import { Header, Text } from '@chakra-ui/react';
+
+const AlleHeader = () => {
+  return (
+    {/* using <header /> here hels significantly with seo */}
+    <header>
+      <div className='welcome'>
+        {/* By default, <Header /> from chakra is an <h2 />, which gives us some nice page weights for seo and a11y */}
+        <Header>Welcome, Cousin Throckmorton</Header>
+
+        {/* using the "as" prop, we can regain all the benefits of using semantic HTML tags */}
+        <Text as='h3'>You have earned 3,450 points this month!</Text>
+      </div>
+
+      {/* this is now much more a11y friendly, and also helps with SEO sitemapping */}
+      <nav className='navigation'>
+        <ul>
+          <li>Home</li>
+          <li>Wallet</li>
+          <li>Search Providers</li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
+```
 
 ### Files owned by a single team should be explicitly owned
 
