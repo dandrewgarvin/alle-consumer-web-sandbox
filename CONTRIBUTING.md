@@ -441,22 +441,12 @@ const AlleHeader = () => {
 
 ### Files owned by a single team should be explicitly owned
 
-### Directory structures should have a similar structure
+If there are files owned exclusively by one team, one of the best things you can do is to set up [code ownership rules](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) to make sure your team is aware of any changes being made to your file.
 
-a good example of component folders are:
+We have a fairly large suite of applications with domains that span multiple pages, so pretty frequently there are changes being made to files from other teams, which can create downstream issues if they don't have domain knowledge, and code ownership rules help to mitigate this.
 
-src/
-components/
-header/
-index.ts
-header.tsx
-header.css
-header._.ts
-wallet-card/
-index.ts
-wallet-card.tsx
-wallet-card.css
-wallet-card._.ts
+> [!IMPORTANT]
+> Add code ownership rules for files that are clearly within your teams domain
 
 ## Design Philosophies
 
