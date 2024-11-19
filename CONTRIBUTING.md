@@ -113,10 +113,10 @@ import { Header } from '~/components/header';
 
 ### Component props should be used explicitly instead of passing in via the spread operator ({...props})
 
-Spreading props leads to behaviors that are difficult to debug, and prop chains (IE multiple layers of components all using `...props`) that
-are difficult to trace. If we are explicit about the props we receive (and the props
-that we pass in), it becomes significantly easier to reason about our app and know
-what is happening in our code.
+Spreading props leads to behaviors that are difficult to debug, and prop chains (IE multiple layers of components all using `...props`) that are difficult to trace. If we are explicit about the props we receive (and the props that we pass in), it becomes significantly easier to reason about our app and know what is happening in our code.
+
+> [!IMPORTANT]
+> Don't spread props; Intentionally pass each prop in separately.
 
 Bad:
 
@@ -138,6 +138,42 @@ const Button = ({ children, onClick, disabled = false }) => {
     </button>
   );
 };
+```
+
+### Be explicit about which default props are supported
+
+When declaring typescript interfaces, it is preferred to support a select few set of native html attributes (or chakra props) rather than everything blindly. This is easy enough to do since we are not spreading props, either.
+
+> [!IMPORTANT]
+> Don't spread props. Be explicit about which props are or are not supported.
+
+
+Bad:
+
+```tsx
+import type { ButtonProps } from '@chakra-ui/react'
+
+// we are accepting every attribute possible
+interface Props extends ButtonProps {...}
+
+const Button: (props: Props) => {...}
+```
+
+Good:
+
+```tsx
+import type { ButtonProps } from '@chakra-ui/react'
+
+// we are being very clear about which props are supported, and which are not.
+// in this case, we are not accidentally allowing things like `onDoubleClick`
+type SupportedDefaultProps = Pick<
+  ButtonProps,
+  'className', 'onClick'
+>
+
+interface Props extends SupportedDefaultProps {...}
+
+const Button = (props: Props) => {...}
 ```
 
 ### Parent components should be able to easily override styles
