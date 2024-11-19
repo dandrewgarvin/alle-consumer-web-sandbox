@@ -171,7 +171,18 @@ const Button = (props: Props) => {...}
 
 ### Prefer kebab-casing for file paths
 
+It is preferred to use kebab-cased directory and file names over camelCased or PascalCased. In linux systems, file casing matters, so `Component.ts` and `component.ts` are different files, but on a mac system, they are considered to be the same.
+
+To avoid any potential casing issues, and to improve readability (especially with words containing a mix of upper-case `i`s and lower-case `l`s), kebab-casing should be used for file names.
+
+> [!IMPORTANT]
+> Files and directories should use kebab-casing
+
 ### Prefer no barrel files
+
+[Barrel files](https://tkdodo.eu/blog/please-stop-using-barrel-files) are a name given to `index` files that do nothing but import/re-export other files. While these can make imports look pretty, they also have the potential for accidental circular imports, so it is preferred to not use them.
+
+Instead, your import lines should reference the file that directly exports the class/component/etc you need.
 
 ### Prefer named exports over default exports
 
