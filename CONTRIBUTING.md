@@ -241,7 +241,43 @@ export type { Props }
 export { Button, StyledButton }
 ```
 
-### Prefer IndexCased component and class names
+### Prefer IndexCasing for components, and camelCasing for variables
+
+It has been a long-standing pattern in the world of React development (and really software development as a whole) to name classes & components using IndexCasing (also known as PascalCasing).
+
+We should adhere to this standard. Method names, variable names, and other non-class and non-component names should use camel casing.
+
+Bad:
+
+```tsx
+// components should be IndexCased
+const button = () => {...}
+
+// classes should be IndexCased
+class wallet_adapter {...}
+
+// objects should be camelCased
+const WalletMethods = {
+  // methods should be camelCased
+  FetchUserWallet: () => {...}
+}
+```
+
+Good:
+
+```tsx
+// components should be IndexCased
+const Button = () => {...}
+
+// classes should be IndexCased
+class WalletAdapter {...}
+
+// objects should be camelCased
+const walletMethods = {
+  // methods should be camelCased
+  fetchUserWallet: () => {...}
+}
+```
 
 ### Components should not be aware of ADL data
 
