@@ -507,6 +507,10 @@ Compound components are a great option for complex components that dynamically p
 
 - [Compound Components by Kent C Dodds](https://kentcdodds.com/blog/compound-components-with-react-hooks)
 
+### SOLID Principles
+
+### WET vs DRY
+
 ## Testing
 
 ### Unit Tests
