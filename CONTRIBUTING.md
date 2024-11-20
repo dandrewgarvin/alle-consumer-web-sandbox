@@ -520,6 +520,10 @@ You should consider it to be a red flag when you are writing code in a reusable 
 
 ### SOLID Principles
 
+[The SOLID Design Principles](https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/) are time-tested practices of writing object-oriented software that scales well.
+
+In our code, the SOLID design principles hold a lot of weight, and you should be actively considering how you can refactor your code to be well-aligned with these principles. If you are in a scenario where you can only choose one design philosophy from this document (which is an unlikely scenario to be in, to be fair), choose to follow SOLID.
+
 ## Testing
 
 ### Unit Tests
