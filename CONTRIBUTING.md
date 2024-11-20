@@ -526,9 +526,25 @@ In our code, the SOLID design principles hold a lot of weight, and you should be
 
 ## Testing
 
+Prior to writing any code for a feature, you should have a plan for what needs to be tested. Work with your teams QA engineer to help create this plan, and list out what needs to be tested, and what type of tests are appropriate for each use-case.
+
 ### Unit Tests
 
+Unit testing is an important part of developing software, and its importance grows with the number of features, developers, teams, and lines of code we have. We're at a large enough scale that unit tests essential.
+
+However, unit tests are only valuable when they're written _well_, and when they cover the right things. Quality over quantity. `it should render` does nothing to improve our confidence. Lines of code is a helpful metric, but not all lines of code are equal; Testing that your `/about` page renders is much less impactful than testing that the calculations you're making for reward points is correct.
+
+> [!IMPORTANT]
+> Prioritize writing tests that cover _logic_ rather than _UI_
+
+> [!IMPORTANT]
+> Prioritize writing high-quality tests that cover *branches* of code (IE both cases in an if/else condition).
+
 ### E2E & Integration Tests
+
+End-to-End (E2E) and Integration tests are a way to verify that your application's frontend works with your applications backend. E2E tests should be written to cover important user flows, such as logging in, going through the checkout flow, etc.
+
+E2E tests are computationally expensive (they take a lot of time to run), so if you can write unit tests that give you the same confidence against regressions, prefer those.
 
 ## Observability
 
