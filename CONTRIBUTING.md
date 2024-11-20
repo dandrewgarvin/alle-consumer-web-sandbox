@@ -507,9 +507,18 @@ Compound components are a great option for complex components that dynamically p
 
 - [Compound Components by Kent C Dodds](https://kentcdodds.com/blog/compound-components-with-react-hooks)
 
-### SOLID Principles
-
 ### WET vs DRY
+
+`Don't Repeat Yourself` (DRY) is a principle that is discussed often among developers. The idea of DRY code is to create abstractions around pieces of code that are frequently re-used in an effort to reduce [change amplification](https://milkov.tech/assets/psd.pdf#page=20).
+
+However, caring too much about DRY code often results in really _bad_ abstractions, for example components that receive props that changes its behavior based on where in the application its being rendered. This type of awareness does not belong in most components, and should live closer to the application. This is where `Write Everything Twice` (WET) enters the conversation; It is the idea that it is okay to duplicate an abstraction if the two versions might change for different reasons.
+
+You should consider it to be a red flag when you are writing code in a reusable component that changes its behavior based on where it's being used, or the result of a given feature flag or piece of data.
+
+> [!IMPORTANT]
+> DRY code can be good, but it is far from the most important principle to consider. Aim to make your code DRY, but look out for any red flags indicating your component is too aware of where its being rendered.
+
+### SOLID Principles
 
 ## Testing
 
