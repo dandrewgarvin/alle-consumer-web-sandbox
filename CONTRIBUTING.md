@@ -1,21 +1,33 @@
-## Consumer Web - Contributing
+# ADR 0005 - Consumer Web Style Guide
 
-## Problems with current components
+## Proposal
 
-1. component libraries have no identity; no layers
-2. JS where CSS should be used
-3. outdated 3rd party libraries
-4. no proper patterns
-   1. mis-using patterns like compound components
-5. terrible prop usage
-6. outer layer components with business logic
+- Date Proposed: Nov 20, 2024
+- Last Updated: Nov 20, 2024
+
+### Status
+
+Proposed
+
+### Context / Problem Statement
+
+As our organization has grown over the past 5 years, so have our applications, and number of features. We have established standards in our backend stack, surrounding things like event-driven architecture and graphql usage, but the frontend codebase has not had any such standards in place.
+
+Because of this, there are many different patterns, and lack of patterns, prevelant throughout our codebase(s). This has resulted in engineers not having a single source-of-truth for how to write software to create consistency and scalability. Alternatively, it has also created an environment where engineers have to reference conversations that took place prior to them even working here, as a way of establishing standard practices. This has also resulted in a very poor onboarding process to learn "our way" of writing frontend code.
+
+To solve this problem, and to prepare us for some very large upcoming changes like micro frontends (MFE), I am proposing this document as the source of truth for our coding standards & practices to be adopted by all engineers working in our frontend codebases.
+
+This proposal will serve as the _initial baseline_ set of principles, but will evolve as our needs do.
+
+### Consequences
+
+Having a set of standards in place will help with the onboarding experience into our codebases. Additionally, it will aid in the code authoring and reviewing processes, giving engineers a single place to look to make sure the code they are writing is consistent, scalable, and clean.
 
 ---
 
-library considerations
+---
 
-- chakra UI
-- alle-elements
+---
 
 ## Styling
 
@@ -538,7 +550,7 @@ However, unit tests are only valuable when they're written _well_, and when they
 > Prioritize writing tests that cover _logic_ rather than _UI_
 
 > [!IMPORTANT]
-> Prioritize writing high-quality tests that cover *branches* of code (IE both cases in an if/else condition).
+> Prioritize writing high-quality tests that cover _branches_ of code (IE both cases in an if/else condition).
 
 ### E2E & Integration Tests
 
