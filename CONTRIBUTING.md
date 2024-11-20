@@ -548,4 +548,10 @@ E2E tests are computationally expensive (they take a lot of time to run), so if 
 
 ## Observability
 
+`Observability` is the ability to understand what is happening within your system. Good observability means you are getting automated alerts that something is wrong, prior to users reporting it. Your team should be the first people aware of an issue. If you are being told that something is wrong by another team, or a customer, then your observability needs to be improved.
+
 ### Logging & Monitoring
+
+One of the first ways to step into observability is to set up good logging & monitoring practices. You can reference [this page](https://sre.google/sre-book/monitoring-distributed-systems/) of Google's `Site Reliability Engineering` guidebook for how to start.
+
+Ideally, at a minimum, you should log all successful & errored requests in your user journey, and use those values to determine what percent of your requests are failing (EG `P = fail / (success + fail)`), and use that value in your monitors to alert you based on what your team has established as your `acceptable error rate` for the given user journey.
